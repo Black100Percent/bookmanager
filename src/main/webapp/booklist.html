@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #d2 {
+            font-size: 150%;
+            font-weight: bold;
+        }
+    </style>
+    <script type="text/javascript" src="js/ajax.js"></script>
+    <script type="text/javascript">
+        function findAll() {
+            var xhr = getXhr();
+            xhr.open('get', 'findAll.do',true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var txt = xhr.responseText;
+                    var arr = JSON.parse(txt);
+                    var trs = '';
+                    for (i=0;i<arr.length;i++) {
+                        var s = arr[i];
+                        trs += '<tr><td>' + s.id + '</td><td>' + s.name + '</td><td>' + s.author + '</td><td>' + s.press + '</td><td>' + s.price + '</td><td>' + s.category + '</td><td>' + s.date + '</td><td>' + s.amount + '</td><td>' + s.approach +'</td></tr>';
+                    }
+                    $('tb1').innerHTML = trs;
+                }
+            };
+            xhr.send(null);
+        }
+    </script>
+</head>
+<body onload="findAll();">
+    <div id="d1">
+        <div id="d2">Book List</div>
+        <div id="d3">
+            <table width="50%">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>NAME</td>
+                        <td>AUTHOR</td>
+                        <td>PRESS</td>
+                        <td>PRICE</td>
+                        <td>CATEGORY</td>
+                        <td>DATE</td>
+                        <td>AMOUNT</td>
+                        <td>APPROACH</td>
+                    </tr>
+                </thead>
+                <tbody id="tb1"></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
