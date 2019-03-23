@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<!-- 要使用Mapper映射器的话，该namespace要等于接口的完整的名字 -->
+<mapper namespace="dao.BookDAO">
+	<!-- 
+		id：要求唯一
+		parameterType：参数类型，这儿填写实体类的完整的名字
+	 -->
+
+	 <!-- 增，此处传入一个对象 -->
+     <insert id="save" parameterType="entity.Book">
+     	<!-- #{name}和#{age}会用get方法取SqlSession.insert()插入的值 -->
+     	INSERT INTO wgzc_books (name, author, press, price, category, date, amount, approach) VALUES(#{name}, #{author}, #{press}, #{price}, #{category}, #{date}, #{amount}, #{approach})
+     </insert>
+
+	<!-- 删，此处传入id -->
+	<delete id="deleteById" parameterType="Integer">
+		DELETE FROM wgzc_books WHERE id = #{id}
+	</delete>
+
+	<!-- 改，此处传入一个对象 -->
+	<update id="modify" parameterType="entity.Book">
+		UPDATE wgzc_books SET name = #{name}, author = #{author}, press = #{press}, price = #{price}, category = #{category}, date = #{date}, amount = #{amount}, approach = #{approach} WHERE id = #{id}
+	</update>
+
+	<!-- 查（所有） -->
+	<select id="findAll" resultType="entity.Book">
+		SELECT * FROM wgzc_books
+	</select>
+
+	<!-- 查（单个），此处传入id -->
+	<select id="findById" parameterType="Integer" resultType="entity.Book">
+		<!-- 此处#{id1}则不需要和Employee的属性名（id）一致，因为直接传的就是int类型的值，而不是对象，所以无需解析 -->
+		SELECT * FROM wgzc_books WHERE id = #{id}
+	</select>
+
+</mapper>
